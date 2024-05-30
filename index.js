@@ -15,7 +15,7 @@ app.post('/api/metrics', async (req, res) => {
       console.log('Received POST request to /api/metrics:', data);
   
       // 다른 서버에 POST 요청을 보냅니다.
-      const response = await fetch('http://18.182.29.254:8000/api/metrics', {
+      const response = await fetch('http://fastapi-service.default.svc.cluster.local:8000/api/metrics', {
         method: 'POST',
         body: JSON.stringify(data),
         headers: {
@@ -34,7 +34,7 @@ app.post('/api/metrics', async (req, res) => {
 
 // 루트 엔드포인트에 대한 요청을 리액트 앱으로 프록시합니다.
 app.use('/', createProxyMiddleware({
-  target: 'http://localhost:3000',
+  target: 'http://mypod-service.default.svc.cluster.local:3000',
   changeOrigin: true,
 }));
 
